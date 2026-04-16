@@ -7,9 +7,6 @@
     <div class="header-content">
       <h2>{{ isEditMode ? 'Edit Task' : 'New Task' }}</h2>
 
-      @if (isEditMode) {
-        <span class="edit-badge">View Only</span>
-      }
     </div>
 
     <button mat-icon-button class="close-btn" (click)="onCancel()">
@@ -77,23 +74,6 @@
             }
           </select>
           <label [class.active]="form.controls['assignedTo'].value">Assign To</label>
-        </div>
-      } @else {
-        <div class="assigned-info">
-          <span class="field-label">Assigned To</span>
-
-          @if (getUserById(form.controls['assignedTo'].value); as user) {
-            <div class="assignee-chip">
-              <span
-                class="mini-avatar"
-                [style.background]="user.avatarBg"
-                [style.color]="user.avatarColor"
-              >
-                {{ user.initials }}
-              </span>
-              {{ user.name }}
-            </div>
-          }
         </div>
       }
 
