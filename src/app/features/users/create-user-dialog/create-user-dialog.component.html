@@ -1,0 +1,59 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2>Create User</h2>
+    <p>Add a new user and assign role & supervisor</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-grid" [class.single-column]="!isManager">
+      
+      <div class="field">
+        <label>Name</label>
+        <input type="text" formControlName="name" placeholder="Enter full name" />
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter email" />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Enter password" />
+      </div>
+
+      @if (isManager) {
+        <div class="field">
+          <label>Role</label>
+          <select formControlName="role">
+            @for (role of roleOptions; track role.value) {
+              <option [value]="role.value">
+                {{ role.label }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="field full-width">
+          <label>Supervisor</label>
+          <select formControlName="managerId">
+            <option value="" disabled>Select supervisor</option>
+            @for (manager of filteredManagers; track manager.id) {
+              <option [value]="manager.id">
+                {{ manager.name }} ({{ formatRole(manager.role) }})
+              </option>
+            }
+          </select>
+        </div>
+      }
+
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn-ghost" mat-dialog-close>Cancel</button>
+      <button type="submit" class="btn-primary" [disabled]="form.invalid">
+        Create User
+      </button>
+    </div>
+  </form>
+</div>

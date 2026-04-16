@@ -1,0 +1,64 @@
+<div class="task-card" [class.read-only]="!canEdit" (click)="onCardClick()">
+
+  <!-- Priority badge -->
+  <div class="priority-badge" [ngClass]="'priority-' + task.priority">
+    <mat-icon>
+      {{
+        task.priority === 'high'
+          ? 'keyboard_double_arrow_up'
+          : task.priority === 'low'
+          ? 'keyboard_double_arrow_down'
+          : 'drag_handle'
+      }}
+    </mat-icon>
+    {{ task.priority }}
+  </div>
+
+  <!-- Title -->
+  <h4 class="card-title">{{ task.title }}</h4>
+
+  <!-- Description preview -->
+  @if (task.description) {
+    <p class="card-desc">{{ task.description }}</p>
+  }
+
+  <!-- Footer -->
+  <div class="card-footer">
+
+    <!-- Tags (max 2 shown) -->
+    <div class="tags-row">
+      @for (tag of task.tags.slice(0, 2); track tag) {
+        <span class="tag">{{ tag }}</span>
+      }
+
+      @if (task.tags.length > 2) {
+        <span class="tag tag-more">+{{ task.tags.length - 2 }}</span>
+      }
+    </div>
+
+    <div class="card-meta">
+      <!-- Attachments indicator -->
+      @if (task.files.length > 0) {
+        <span
+          class="attach-count"
+          matTooltip="{{ task.files.length }} attachment(s)"
+        >
+          <mat-icon>attach_file</mat-icon>
+          {{ task.files.length }}
+        </span>
+      }
+
+      <!-- Assignee avatar -->
+      @if (assignee) {
+        <div
+          class="assignee-avatar"
+          [style.background]="assignee.avatarBg"
+          [style.color]="assignee.avatarColor"
+          [matTooltip]="assignee.name + ' (' + assignee.role + ')'"
+        >
+          {{ assignee.initials }}
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<div class="dialog-container">
+  <!-- Header -->
+  <div
+    class="dialog-header"
+    [style.border-left-color]="form.get('columnId')?.value | columnColor"
+  >
+    <div class="header-content">
+      <h2>{{ isEditMode ? 'Edit Task' : 'New Task' }}</h2>
+
+      @if (isEditMode) {
+        <span class="edit-badge">View Only</span>
+      }
+    </div>
+
+    <button mat-icon-button class="close-btn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-body">
+    <form [formGroup]="form" autocomplete="off">
+
+      <!-- Title -->
+      <div class="field">
+        <input type="text" formControlName="title" placeholder=" " />
+        <label [class.active]="form.controls['title'].value">Task Title</label>
+        @if (form.controls['title'].touched && form.controls['title'].invalid) {
+          <small class="auth-error">
+            @if (form.controls['title'].errors?.['required']) {
+              <span>Title is required</span>
+            }
+            @if (form.controls['title'].errors?.['maxlength']) {
+              <span>Maximum 120 characters allowed</span>
+            }
+          </small>
+        }
+      </div>
+
+
+      <!-- Description -->
+      <div class="field">
+        <textarea formControlName="description" rows="3" placeholder=" "></textarea>
+        <label [class.active]="form.controls['description'].value">Description</label>
+      </div>
+
+      <!-- Priority + Column -->
+      <div class="field-row">
+        <div class="field">
+          <select formControlName="priority">
+            <option value="high">🔴 High</option>
+            <option value="medium">🟡 Medium</option>
+            <option value="low">🟢 Low</option>
+          </select>
+          <label [class.active]="form.controls['priority'].value">Priority</label>
+        </div>
+
+        <div class="field">
+          <select formControlName="columnId">
+            @for (col of columns; track col.id) {
+              <option [value]="col.id">
+                {{ col.title }}
+              </option>
+            }
+          </select>
+          <label [class.active]="form.controls['columnId'].value">Column</label>
+        </div>
+      </div>
+
+      <!-- Assignee -->
+      @if (canAssign) {
+        <div class="field">
+          <select formControlName="assignedTo">
+            @for (user of assignableUsers; track user.id) {
+              <option [value]="user.id">
+                {{ user.name }} ({{ formatRole(user.role) }})
+              </option>
+            }
+          </select>
+          <label [class.active]="form.controls['assignedTo'].value">Assign To</label>
+        </div>
+      } @else {
+        <div class="assigned-info">
+          <span class="field-label">Assigned To</span>
+
+          @if (getUserById(form.controls['assignedTo'].value); as user) {
+            <div class="assignee-chip">
+              <span
+                class="mini-avatar"
+                [style.background]="user.avatarBg"
+                [style.color]="user.avatarColor"
+              >
+                {{ user.initials }}
+              </span>
+              {{ user.name }}
+            </div>
+          }
+        </div>
+      }
+
+    </form>
+  </div>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+    @if (isEditMode) {
+      <button class="btn-danger" (click)="onDelete()">Delete</button>
+    }
+
+    <button class="btn-ghost" (click)="onCancel()">Cancel</button>
+
+    <button class="btn-primary" (click)="onSave()">
+      {{ isEditMode ? 'Save Changes' : 'Create Task' }}
+    </button>
+  </div>
+</div>

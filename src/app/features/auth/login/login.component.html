@@ -1,0 +1,55 @@
+<div class="auth-container">
+  <form class="auth-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="auth-header">
+      <h2>Welcome back</h2>
+      <p>Login to continue</p>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="auth-field">
+      <input formControlName="email" placeholder=" " />
+      <label [class.active]="form.controls.email.value">Email</label>
+    </div>
+
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="auth-error">
+        @if (form.controls.email.errors?.['required']) {
+          <span>Email is required</span>
+        }
+        @if (form.controls.email.errors?.['email']) {
+          <span>Invalid email format</span>
+        }
+      </small>
+    }
+
+    <!-- PASSWORD -->
+    <div class="auth-field">
+      <input type="password" formControlName="password" placeholder=" " />
+      <label [class.active]="form.controls.password.value">Password</label>
+    </div>
+
+    @if (form.controls.password.touched && form.controls.password.invalid) {
+      <small class="auth-error">
+        @if (form.controls.password.errors?.['required']) {
+          <span>Password is required</span>
+        }
+        @if (form.controls.password.errors?.['minlength']) {
+          <span>Minimum 6 characters required</span>
+        }
+      </small>
+    }
+
+    <button
+      class="auth-btn"
+      type="submit"
+      [disabled]="form.invalid || form.pending"
+    >
+      Login
+    </button>
+
+    <div class="auth-footer">
+      Don’t have an account?
+      <span routerLink="/signup">Sign up</span>
+    </div>
+  </form>
+</div>

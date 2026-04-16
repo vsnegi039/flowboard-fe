@@ -1,0 +1,45 @@
+<div class="auth-container">
+  <form class="auth-card" [formGroup]="form" (ngSubmit)="verify()">
+    <div class="auth-header">
+      <h2>Verify OTP</h2>
+      <p>Enter the 6-digit code sent to your email</p>
+      @if(data){
+        <p>Your OTP: {{data.otp}}</p>
+      }
+    </div>
+
+    <!-- OTP INPUTS -->
+    <div class="otp-container" (paste)="onPaste($event)">
+      @for (item of otpArray; track $index; let i = $index) {
+        <input
+          #otpInput
+          maxlength="1"
+          type="text"
+          inputmode="numeric"
+          class="otp-input"
+          (input)="onInput($event, i)"
+          (keydown)="onKeyDown($event, i)"
+        />
+      }
+    </div>
+
+    <button
+      class="auth-btn"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Verify
+    </button>
+
+    @if (form.controls.otp.touched && form.controls.otp.invalid) {
+      <small class="auth-error">
+        Enter the full 6-digit OTP.
+      </small>
+    }
+
+    <div class="auth-footer">
+      Didn’t receive code?
+      <span (click)="resendOtp()">Resend</span>
+    </div>
+  </form>
+</div>

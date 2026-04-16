@@ -1,0 +1,295 @@
+// App Toolbar
+.app-toolbar {
+  background: #1a1916 !important;
+  height: 54px !important;
+  padding: 0 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 12px;
+
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+
+  mat-icon {
+    color: #f5a623;
+    font-size: 22px;
+    height: 22px;
+    width: 22px;
+  }
+}
+
+.toolbar-sep {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.board-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+// Filter
+.filter-field {
+  height: 36px;
+
+  ::ng-deep {
+    .mat-mdc-form-field-flex {
+      height: 36px;
+      align-items: center;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      padding: 0 8px;
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-radius: 6px;
+    }
+
+    .mdc-notched-outline {
+      display: none;
+    }
+
+    .mat-mdc-select-value {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+    }
+
+    .mat-mdc-select-arrow {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .mat-icon {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      height: 16px;
+      width: 16px;
+      margin-right: 4px;
+    }
+
+    .mat-mdc-form-field-infix {
+      display: flex;
+      align-items: center;
+      padding: 0 !important;
+      width: 130px;
+    }
+  }
+}
+
+.new-task-btn {
+  background: #f5a623 !important;
+  color: #1a1916 !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  height: 36px !important;
+  padding: 0 14px !important;
+  border-radius: 6px !important;
+
+  mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+  }
+
+  &:hover {
+    background: #e8991a !important;
+  }
+}
+
+.role-btn {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 13px !important;
+  height: 36px !important;
+  padding: 0 8px !important;
+  border-radius: 6px !important;
+
+  mat-icon {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+// Role menu
+::ng-deep .role-menu {
+  .mat-mdc-menu-content {
+    padding: 6px 0;
+  }
+
+  .menu-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(0, 0, 0, 0.4);
+    padding: 6px 16px 4px;
+  }
+
+  button.mat-mdc-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    height: auto;
+    min-height: 44px;
+
+    .mat-mdc-menu-item-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+  }
+
+  button.active-user {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .menu-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .menu-name {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .menu-role {
+    display: block;
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .check-icon {
+    margin-left: auto;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    color: #1565c0;
+  }
+}
+
+// Subheader
+.board-subheader {
+  background: #f0ede8;
+  border-bottom: 1px solid #e0dbd4;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+
+  .subheader-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.role-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+
+  &.role-manager {
+    background: #fff3e0;
+    color: #bf360c;
+  }
+
+  &.role-team-lead {
+    background: #e3f2fd;
+    color: #1565c0;
+  }
+
+  &.role-employee {
+    background: #e8f5e9;
+    color: #1b5e20;
+  }
+}
+
+.role-desc {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+// Kanban Board
+.kanban-board {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px 24px;
+  overflow-x: auto;
+  align-items: flex-start;
+  min-height: calc(100vh - 102px);
+  background: #f0ede8;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+  }
+}

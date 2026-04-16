@@ -1,0 +1,64 @@
+<!-- Top Toolbar -->
+<mat-toolbar class="app-toolbar">
+  <div class="toolbar-left">
+    <span class="app-logo">
+      <mat-icon>view_kanban</mat-icon>
+      FlowBoard
+    </span>
+  </div>
+
+  <div class="toolbar-right">
+    <!-- Priority Filter -->
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-icon matPrefix>filter_list</mat-icon>
+      <mat-select [formControl]="filterControl" panelClass="filter-panel">
+        @for (opt of filterOptions; track opt.value) {
+          <mat-option [value]="opt.value">
+            {{ opt.label }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- New Task Button -->
+    <button mat-flat-button class="new-task-btn" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      New Task
+    </button>
+
+    <!-- Auth User Menu -->
+    @if (authService.user(); as user) {
+      <button mat-button [matMenuTriggerFor]="userMenu" class="role-btn">
+        <span class="user-name">{{ user.name }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu" class="role-menu">
+        @if (canCreate) {
+          <button mat-menu-item (click)="openCreateUserDialog()">
+            <mat-icon>person_add</mat-icon>
+            <span>Create user</span>
+          </button>
+        }
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Log out</span>
+        </button>
+      </mat-menu>
+    }
+  </div>
+</mat-toolbar>
+
+<!-- Kanban Board -->
+<div class="kanban-board">
+  @for (col of columns(); track col.id) {
+    <app-column
+      [column]="col"
+      [connectedTo]="columnIds"
+      (taskDropped)="onTaskDropped($event, col.id)"
+      (addTaskClick)="openCreateDialog($event)"
+      (taskCardClick)="openEditDialog($event)">
+    </app-column>
+  }
+</div>

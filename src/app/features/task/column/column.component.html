@@ -1,0 +1,68 @@
+<div class="column-wrapper">
+  <!-- Column Header -->
+  <div class="column-header">
+    <span class="col-dot" [style.background]="column.color"></span>
+    <h3 class="col-title">{{ column.title }}</h3>
+    <span class="col-count">{{ column.tasks.length }}</span>
+
+    <button
+      mat-icon-button
+      class="add-btn"
+      (click)="onAddTask()"
+      [attr.aria-label]="'Add task to ' + column.title"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <!-- Drop List -->
+  <div
+    cdkDropList
+    [id]="column.id"
+    [cdkDropListData]="column.tasks"
+    [cdkDropListConnectedTo]="connectedTo"
+    class="tasks-list"
+    [class.empty]="column.tasks.length === 0"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+
+    @for (task of column.tasks; track task._id) {
+      <div
+        cdkDrag
+        [cdkDragData]="task"
+        class="drag-item"
+      >
+        <!-- Drag placeholder -->
+        <div *cdkDragPlaceholder class="drag-placeholder"></div>
+
+        <!-- Drag preview -->
+        <div *cdkDragPreview class="drag-preview">
+          <span class="preview-title">{{ task.title }}</span>
+        </div>
+
+        <app-task-card
+          [task]="task"
+          [assignee]="userService.getUserById(task.assignedTo)"
+          [canEdit]="taskService.canEditTask(task)"
+          (cardClick)="onCardClick($event)"
+        >
+        </app-task-card>
+      </div>
+    }
+
+    <!-- Empty state -->
+    @if (column.tasks.length === 0) {
+      <div class="empty-state">
+        <mat-icon>inbox</mat-icon>
+        <p>No tasks here</p>
+      </div>
+    }
+
+  </div>
+
+  <!-- Add task button at bottom -->
+  <button class="add-task-footer" (click)="onAddTask()">
+    <mat-icon>add</mat-icon>
+    Add task
+  </button>
+</div>
