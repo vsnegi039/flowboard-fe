@@ -2,7 +2,7 @@ import { inject, Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of } from 'rxjs';
 import { ColumnId, Task, TaskFile, TaskFormData } from '../../shared/models/task.model';
-import environment from '../../environments/environment';
+import environment from '../../../environments/environment';
 import { COLUMN_META } from './task.mock';
 import { apiResponse } from '../../shared/models/request.model';
 import { UserService } from '../user/user.service';

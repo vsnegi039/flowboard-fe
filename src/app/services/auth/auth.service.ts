@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, shareReplay, tap, finalize } from 'rxjs';
 import { Router } from '@angular/router';
 
-import environment from '../../environments/environment';
+import environment from '../../../environments/environment';
 import { apiResponse } from '../../shared/models/request.model';
 import { UserRole } from '../../shared/models/task.model';
 
@@ -60,8 +60,7 @@ export class AuthService {
       >(`${this.apiUrl}/register`, { name, email, password }, { withCredentials: true })
       .pipe(
         tap((res) => {
-          if (res.data)
-            this.pendingData = { email, name, password, otp: res.data.otp };
+          if (res.data) this.pendingData = { email, name, password, otp: res.data.otp };
         }),
       );
   }

@@ -2,7 +2,7 @@ import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 
-import environment from '../../environments/environment';
+import environment from '../../../environments/environment';
 import { apiResponse } from '../../shared/models/request.model';
 import { UserRole, User } from '../../shared/models/task.model';
 
