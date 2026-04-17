@@ -30,9 +30,6 @@ export const guestGuard: CanActivateFn = () => {
 
   return auth.refreshAccessToken().pipe(
     map(() => router.createUrlTree(['/board'])),
-    catchError(() => {
-      auth.logout();
-      return of(true);
-    }),
+    catchError(() => of(true)),
   );
 };

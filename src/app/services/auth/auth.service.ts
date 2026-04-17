@@ -28,6 +28,7 @@ export class AuthService {
   private accessToken = signal<string | null>(null);
   private refreshRequest$?: Observable<apiResponse<AuthResponse>>;
   private pendingData: { name: string; email: string; password: string; otp: string } | null = null;
+  private hasTriedRefresh = false;
 
   user = this._user.asReadonly();
 
@@ -88,9 +89,15 @@ export class AuthService {
   }
 
   refreshAccessToken(): Observable<apiResponse<AuthResponse>> {
-    if (this.refreshRequest$) {
-      return this.refreshRequest$ as Observable<apiResponse<AuthResponse>>;
+    if (this.hasTriedRefresh) {
+      return throwError(() => new Error('Already tried refresh'));
     }
+
+    if (this.refreshRequest$) {
+      return this.refreshRequest$;
+    }
+
+    this.hasTriedRefresh = true;
 
     this.refreshRequest$ = this.http
       .post<apiResponse<AuthResponse>>(`${this.apiUrl}/refresh`, {}, { withCredentials: true })
@@ -109,7 +116,7 @@ export class AuthService {
         shareReplay(1),
       );
 
-    return this.refreshRequest$ as Observable<apiResponse<AuthResponse>>;
+    return this.refreshRequest$;
   }
 
   logout(): void {
